@@ -64,7 +64,8 @@ set.seed(123)
 cv.df_train <- cv.tree(credit.tree, FUN = prune.misclass, K = 10)
 names(cv.df_train)
 cv.df_train
-plot(cv.df_train$size, cv.df_train$dev, type = "b")
+#plot(cv.df_train$size, cv.df_train$dev, type = "b")
+ggplot(mapping = aes(x = cv.df_train$size, y = cv.df_train$dev)) + geom_line() + geom_point() + labs(x = "SIZE", y = "DEVIATION")
 best_index <- which.min(cv.df_train$dev)
 best <- cv.df_train$size[best_index]
 credit.prune <- prune.misclass(credit.tree, best = best)
@@ -132,7 +133,8 @@ set.seed(123)
 cv.reg <- cv.tree(credit.tree1, FUN = prune.tree, K = 10)
 names(cv.reg)
 cv.reg
-plot(cv.reg$size, cv.reg$dev, type = "b")
+#plot(cv.reg$size, cv.reg$dev, type = "b")
+ggplot(mapping = aes(x = cv.reg$size, y = cv.reg$dev)) + geom_line() + geom_point() + labs(x = "SIZE", y = "DEVIATION")
 best_index <- which.min(cv.reg$dev)
 best <- cv.reg$size[best_index]
 credit.prune2 <- prune.tree(credit.tree1, best = best)
